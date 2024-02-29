@@ -69,14 +69,14 @@ sudo systemctl restart sshd.service
   EOF
 }
 
-# resource "aws_instance" "worker" {
-#   ami                           = data.aws_ami.ubuntu.id
-#   instance_type                 = "t3.micro"
-#   subnet_id                     = aws_subnet.public.*.id[1]
-#   key_name                      = aws_key_pair.boundary.key_name
-#   vpc_security_group_ids        = [aws_security_group.worker.id]
-#   associate_public_ip_address   = true
-#   tags = {
-#     Name = "${var.tag}-target-${random_pet.test.id}-worker"
-#   }
-# }
+resource "aws_instance" "worker" {
+  ami                           = data.aws_ami.ubuntu.id
+  instance_type                 = "t3.micro"
+  subnet_id                     = aws_subnet.public.*.id[1]
+  key_name                      = aws_key_pair.boundary.key_name
+  vpc_security_group_ids        = [aws_security_group.worker.id]
+  associate_public_ip_address   = true
+  tags = {
+    Name = "${var.tag}-target-${random_pet.test.id}-worker"
+  }
+}
